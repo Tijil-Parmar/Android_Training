@@ -47,6 +47,9 @@
         android:stepSize="1"
         android:value="212"
         android:valueFrom="100"
+        app:trackColorActive="#B3B3B3"
+        app:trackColorInactive="@color/white"
+        app:trackHeight="2dp"
         android:valueTo="300"
         app:haloColor="#a1a1a1"
         app:haloRadius="15dp"
@@ -58,7 +61,7 @@
         app:layout_constraintVertical_bias="0.378"
         app:thumbColor="#FFFFFF"
         app:thumbElevation="@dimen/cardview_compat_inset_shadow"
-        app:trackColor="#585858" />
+        app:trackColor="#B3B3B3" />
 
     <TextView
         android:id="@+id/textView2"
@@ -87,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/setDate" />
 
     <TextView
         android:id="@+id/textView4"
@@ -122,16 +125,17 @@
         app:layout_constraintVertical_bias="0.528" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/setDate"
         android:layout_width="199dp"
         android:layout_height="42dp"
         android:layout_marginLeft="10dp"
-        android:fontFamily="@font/helvetica"
         android:layout_marginTop="8dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/button_border"
-        android:text="Set Date"
-        android:textColor="#585858"
+        android:fontFamily="@font/helvetica"
+        android:text="Set date"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#949494"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -148,20 +152,20 @@
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/setDate" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="180dp"
         android:layout_height="51dp"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="200dp"
         android:background="@drawable/button_border"
         android:backgroundTint="#f1f1f1"
         android:fontFamily="@font/helvetica"
         android:text="Review Progress"
-        android:textColor="#585858"
-        android:textSize="14sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#949494"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -177,7 +181,8 @@
         android:backgroundTint="#f1f1f1"
         android:fontFamily="@font/helvetica"
         android:text="Get Started"
-        android:textColor="#585858"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#949494"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -191,7 +196,7 @@
         android:layout_width="211dp"
         android:layout_height="35dp"
         android:layout_marginTop="20dp"
-        android:text="Daily Reminder Time :"
+        android:text="Daily reminder time :"
         android:textColor="#4f6c8d"
         android:fontFamily="@font/helvetica"
         android:textSize="16dp"
@@ -211,19 +216,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5"
+        android:clickable="false"
+        app:layout_constraintTop_toBottomOf="@+id/setDuration"
         app:layout_constraintVertical_bias="0.648" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/setTime"
         android:layout_width="123dp"
+        android:clickable="false"
         android:layout_height="42dp"
         android:layout_marginBottom="144dp"
         android:background="@drawable/button_border"
         android:backgroundTint="#f1f1f1"
         android:fontFamily="@font/helvetica"
+        android:enabled="false"
         android:text="Set time"
-        android:textColor="#585858"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#949494"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -231,14 +240,15 @@
         app:layout_constraintStart_toEndOf="@+id/textView6" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/setDuration"
         android:layout_width="204dp"
         android:layout_height="42dp"
         android:layout_marginLeft="5dp"
         android:background="@drawable/button_border"
         android:fontFamily="@font/helvetica"
         android:text="01 Hr 30 Mins"
-        android:textColor="#585858"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#949494"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/switch1"
         app:layout_constraintEnd_toEndOf="parent"
