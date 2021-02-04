@@ -60,7 +60,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/helvetica"
             android:lineSpacingExtra="8sp"
-            android:text="How many questions would you like to attempt per day? We recommend 212 questions per day."
+            android:text="How many questions would you like to attempt per day?"
             android:textColor="#4f6c8d"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
