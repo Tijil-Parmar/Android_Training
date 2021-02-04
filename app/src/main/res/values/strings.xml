@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">SSCopy</string>
+    <string name="textViewDate">When do you plan to take your NCLEX exam?</string>
+    <string name="questionsPerDayTextView">How many questions would you like to attempt per day?</string>
+    <string name="minutesPerDay">How many minutes would you like to study per day?</string>
+    <string name="enableReminderNotifications">Enable reminder notifications</string>
+    <string name="setDate">Set date</string>
+    <string name="reviewProgress">Review progress</string>
+    <string name="get_started">Get started</string>
+    <string name="daily_reminder_time">Daily reminder time :</string>
+    <string name="set_time">Set time</string>
+    <string name="set_duration">Set Time</string>
 </resources>
