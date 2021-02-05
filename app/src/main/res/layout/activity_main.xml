@@ -33,10 +33,10 @@
             android:outlineSpotShadowColor="#BFBFBF"
             app:layout_constraintBottom_toTopOf="@+id/numberOfMinutesTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/slider"
-            app:layout_constraintVertical_bias="0.682" />
+            app:layout_constraintVertical_bias="0.289" />
 
         <TextView
             android:id="@+id/examDateTextView"
@@ -249,24 +249,23 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/slider"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.789"
+            app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/slider"
             app:layout_constraintTop_toBottomOf="@+id/numberOfQuestions"
-            app:layout_constraintVertical_bias="0.75" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <SeekBar
             android:id="@+id/slider"
-            android:layout_width="327dp"
+            android:layout_width="337dp"
             android:layout_height="30dp"
-            android:max="250"
-            android:min="0"
-            android:progress="20"
+            android:elevation="@dimen/cardview_compat_inset_shadow"
+            android:progress="30"
             android:theme="@style/SeekBarColor"
             android:thumbTint="#4f6c8d"
             app:layout_constraintBottom_toTopOf="@+id/numberOfMinutesTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/numberOfQuestions"
-            app:layout_constraintVertical_bias="0.254" />
+            app:layout_constraintVertical_bias="0.215" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
