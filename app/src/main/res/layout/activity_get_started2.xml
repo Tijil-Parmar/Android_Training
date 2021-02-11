@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".getStarted">
+    tools:context="com.example.StudyGoals.getStarted">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

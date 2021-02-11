@@ -1,8 +1,10 @@
-package com.example.sscopy;
+package com.example.StudyGoals;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.StudyGoals.R;
 
 public class getStarted extends AppCompatActivity {
 

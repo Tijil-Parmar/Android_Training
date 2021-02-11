@@ -1,4 +1,4 @@
-package com.example.sscopy;
+package com.example.StudyGoals;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;

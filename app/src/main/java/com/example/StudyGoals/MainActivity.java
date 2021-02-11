@@ -1,4 +1,4 @@
-package com.example.sscopy;
+package com.example.StudyGoals;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,36 +21,48 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    Button setDuration;
-    TextView sliderValue;
-    SeekBar seekbar;
-    Switch switch1;
-    Button setTime,getStarted,setDate;
+
+    Button displayStudyTime;
+    TextView displayUserSelectedQuestions;
+    SeekBar numberOfQuestionsSeekbar;
+    Switch studyReminderSwitch;
+    Button displayReminderTimeBtn;//Convert buttons to textView
+    Button getStartedBtn;
+    Button displayExamDate;
     boolean saveSwitchState;
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public static SharedPreferences preferences;
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    public static SharedPreferences preferences;
+//    @RequiresApi(api = Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences = getSharedPreferences( getPackageName() + "_preferences", MODE_PRIVATE);
+//        preferences = getSharedPreferences( getPackageName() + "_preferences", MODE_PRIVATE);
         setTitle("Study Goals");
         setContentView(R.layout.activity_main);
-        seekbar=findViewById(R.id.numberOfQuestionsSeekbar);
-        seekbar.incrementProgressBy(10);
-        seekbar.setMax(270);
+        numberOfQuestionsSeekbar =findViewById(R.id.numberOfQuestionsSeekbar);
+        numberOfQuestionsSeekbar.incrementProgressBy(10);
+        numberOfQuestionsSeekbar.setMax(270);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            seekbar.setMin(20);
+            numberOfQuestionsSeekbar.setMin(20);
         }
         //setting the state of the switch a
-        switch1=findViewById(R.id.enableNotificationSwitch);
-        setDate = (Button) findViewById(R.id.setDateButton);
-        setTime = (Button) findViewById(R.id.setTimeButton);
-        setDuration=findViewById(R.id.setDurationButton);
-        //Setting up all the attributes in the activity according to the Shared Preference
-        StudyGoal studyGoal=new StudyGoal();
-        studyGoal.fetchdata();
+        studyReminderSwitch =findViewById(R.id.enableNotificationSwitch);
+        displayExamDate = (Button) findViewById(R.id.setDateButton);
+        displayReminderTimeBtn = (Button) findViewById(R.id.setTimeButton);
+        displayStudyTime =findViewById(R.id.setDurationButton);
+        displayUserSelectedQuestions =findViewById(R.id.numberOfQuestionsSeekBar);
+
+        StudyGoal studyGoal=new StudyGoal(displayExamDate.getText().toString(), displayStudyTime.getText().toString(), displayUserSelectedQuestions.getText().toString(), displayReminderTimeBtn.getText().toString(), studyReminderSwitch.isChecked());
+
+        displayExamDate.setText(studyGoal.getExamDate());
+        displayReminderTimeBtn.setText(studyGoal.getReminderTime());
+//        sliderValue.setText(studyGoal.getNumberOfQuestions());
+        displayStudyTime.setText(studyGoal.getDuration());
+        studyReminderSwitch.setChecked(studyGoal.getSwitchState());
+        displayExamDate.setText(studyGoal.getExamDate());
+//        studyGoal.SGfetchdata();
         //Set Time button on click implementation
-        setTime.setOnClickListener(new View.OnClickListener() {
+        displayReminderTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment timePicker = new TimePickerFragment();
@@ -58,16 +70,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
         //Logic for making the "Set Time" button dependent on the switch "Enable Daily Notifications"
-        switch1.setOnClickListener(new View.OnClickListener(){
+        studyReminderSwitch.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                if(switch1.isChecked())
+                if(studyReminderSwitch.isChecked())
                 {
-                    setTime.setEnabled(true);
+                    displayReminderTimeBtn.setEnabled(true);
                     saveSwitchState = true;
                 }
                 else
                 {
-                    setTime.setEnabled(false);
+                    displayReminderTimeBtn.setEnabled(false);
                     saveSwitchState = false;
                 }
             }
@@ -75,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         //Below we have the implementation for Setting number of Minutes per Day by the user
         final int[] hourDuration = new int[1];
         final int[] minuteDuration = new int[1];
-        setDuration.setOnClickListener(new View.OnClickListener() {
+        displayStudyTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimePickerDialog durationPicker=new TimePickerDialog(
@@ -87,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                                 minuteDuration[0] =i1;
                             Calendar c1=Calendar.getInstance();
                             c1.set(0,0,0, hourDuration[0], minuteDuration[0]);
-                            setDuration.setText(android.text.format.DateFormat.format("hh:mm",c1));
+                            displayStudyTime.setText(android.text.format.DateFormat.format("hh:mm",c1));
                             }
                         },24,0,true
                 );
@@ -95,15 +107,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 durationPicker.show();
             }
         });
-//Implementation for the textview beside the seekbar
+        //Implementation for the textview beside the seekbar
         SeekBar slider=findViewById(R.id.numberOfQuestionsSeekbar);
-        sliderValue=(TextView) findViewById(R.id.numberOfQuestionsSeekBar);
+        displayUserSelectedQuestions =(TextView) findViewById(R.id.numberOfQuestionsSeekBar);
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 i = i / 10;
                 i = i * 10;
-                sliderValue.setText(String.valueOf(i));
+                displayUserSelectedQuestions.setText(String.valueOf(i));
             }
 
             @Override
@@ -116,19 +128,23 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
             }
         });
-//"Set Date" implementation
-        setDate.setOnClickListener(new View.OnClickListener() {
+        //"Set Date" implementation
+        displayExamDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment datePicker = new DatePickerFragment();
                 datePicker.show(getSupportFragmentManager(),"Date");
             }
         });
-        getStarted=findViewById(R.id.getStartedButton);
-        getStarted.setOnClickListener(new View.OnClickListener() {
+        getStartedBtn =findViewById(R.id.getStartedButton);
+        getStartedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                studyGoal.run();
+                studyGoal.setDuration(displayStudyTime.getText().toString());
+                studyGoal.setExamDate(displayExamDate.getText().toString());
+                studyGoal.setNumberOfQuestions(displayUserSelectedQuestions.getText().toString());
+                studyGoal.setReminderTime(displayReminderTimeBtn.getText().toString());
+                studyGoal.setSwitchState(saveSwitchState);
             }
         });
     }
@@ -149,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-        setTime= findViewById(R.id.setTimeButton);
-        setTime.setText(hour+":"+minute);
+        displayReminderTimeBtn = findViewById(R.id.setTimeButton);
+        displayReminderTimeBtn.setText(hour+":"+minute);
     }
 }
