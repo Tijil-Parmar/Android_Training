@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SSCopy</string>
+    <string name="app_name">StudyGoals</string>
     <string name="textViewDate">When do you plan to take your NCLEX exam?</string>
     <string name="questionsPerDayTextView">How many questions would you like to attempt per day? We recommend 210 questions.</string>
     <string name="minutesPerDay">How many minutes would you like to study per day?</string>

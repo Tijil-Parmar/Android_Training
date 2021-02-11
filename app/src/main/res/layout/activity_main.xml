@@ -35,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/slider"
+            app:layout_constraintTop_toBottomOf="@+id/numberOfQuestionsSeekbar"
             app:layout_constraintVertical_bias="0.289" />
 
         <TextView
@@ -54,7 +54,7 @@
             app:layout_constraintVertical_bias="0.022" />
 
         <TextView
-            android:id="@+id/numberOfQuestions"
+            android:id="@+id/numberOfQuestionsTextView"
             android:layout_width="387dp"
             android:layout_height="46dp"
             android:layout_marginTop="24dp"
@@ -66,7 +66,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/setDate" />
+            app:layout_constraintTop_toBottomOf="@+id/setDateButton" />
 
         <TextView
             android:id="@+id/numberOfMinutesTextView"
@@ -81,7 +81,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/numberOfQuestions"
+            app:layout_constraintTop_toBottomOf="@+id/numberOfQuestionsTextView"
             app:layout_constraintVertical_bias="0.126" />
 
         <Switch
@@ -102,7 +102,7 @@
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/setDate"
+            android:id="@+id/setDateButton"
             android:layout_width="199dp"
             android:layout_height="42dp"
             android:layout_marginLeft="10dp"
@@ -128,31 +128,32 @@
             android:layout_marginTop="1dp"
             android:background="#BFBFBF"
             android:outlineSpotShadowColor="#BFBFBF"
-            app:layout_constraintBottom_toTopOf="@+id/numberOfQuestions"
+            app:layout_constraintBottom_toTopOf="@+id/numberOfQuestionsTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/setDate" />
+            app:layout_constraintTop_toBottomOf="@+id/setDateButton" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/reviewProgress"
+            android:id="@+id/reviewProgressButton"
             android:layout_width="180dp"
             android:layout_height="51dp"
             android:layout_marginTop="200dp"
-            app:strokeWidth="0.7dp"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/helvetica"
+            android:textAlignment="center"
             android:text="@string/reviewProgress"
-            app:strokeColor="#AAAAAA"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#4f6c8d"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/enableNotificationSwitch" />
+            app:layout_constraintTop_toBottomOf="@+id/enableNotificationSwitch"
+            app:strokeColor="#AAAAAA"
+            app:strokeWidth="0.7dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/getStarted"
+            android:id="@+id/getStartedButton"
             android:layout_width="180dp"
             android:layout_height="51dp"
             android:layout_marginLeft="5dp"
@@ -161,6 +162,7 @@
             android:backgroundTint="@color/white"
             app:strokeColor="#AAAAAA"
             android:fontFamily="@font/helvetica"
+            android:textAlignment="center"
             android:text="@string/get_started"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#4f6c8d"
@@ -168,12 +170,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/reviewProgress"
+            app:layout_constraintStart_toEndOf="@+id/reviewProgressButton"
             app:layout_constraintTop_toBottomOf="@+id/enableNotificationSwitch"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/setReminderTime"
+            android:id="@+id/setReminderTimeTextView"
             android:layout_width="211dp"
             android:layout_height="35dp"
             android:layout_marginTop="20dp"
@@ -196,66 +198,69 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             android:clickable="false"
-            app:layout_constraintTop_toBottomOf="@+id/setDuration"
+            app:layout_constraintTop_toBottomOf="@+id/setDurationButton"
             app:layout_constraintVertical_bias="0.648" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/setTime"
+            android:id="@+id/setTimeButton"
             android:layout_width="123dp"
             android:layout_height="42dp"
             android:layout_marginBottom="144dp"
             android:backgroundTint="@color/white"
             android:clickable="false"
             android:enabled="false"
+            android:textAlignment="center"
+
             android:fontFamily="@font/helvetica"
             android:text="@string/set_time"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#4f6c8d"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/getStarted"
+            app:layout_constraintBottom_toTopOf="@+id/getStartedButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/setReminderTime"
+            app:layout_constraintStart_toEndOf="@+id/setReminderTimeTextView"
             app:strokeColor="#AAAAAA"
             app:strokeWidth="0.7dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/setDuration"
+            android:id="@+id/setDurationButton"
             android:layout_width="204dp"
             android:layout_height="42dp"
             android:layout_marginLeft="5dp"
-            app:strokeWidth="0.7dp"
             android:backgroundTint="@color/white"
-            app:strokeColor="#AAAAAA"
             android:fontFamily="@font/helvetica"
             android:text="@string/set_duration"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#4f6c8d"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/enableNotificationSwitch"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.513"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/numberOfMinutesTextView"
-            app:layout_constraintVertical_bias="0.338" />
+            app:layout_constraintVertical_bias="0.166"
+            app:strokeColor="#AAAAAA"
+            app:strokeWidth="0.7dp" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/numberOfQuestionsSeekBar"
             android:layout_width="40dp"
             android:layout_height="25dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="4dp"
-            android:text="20"
+            android:text="30"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/slider"
+            app:layout_constraintBottom_toBottomOf="@+id/numberOfQuestionsSeekbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toEndOf="@+id/slider"
-            app:layout_constraintTop_toBottomOf="@+id/numberOfQuestions"
+            app:layout_constraintStart_toEndOf="@+id/numberOfQuestionsSeekbar"
+            app:layout_constraintTop_toBottomOf="@+id/numberOfQuestionsTextView"
             app:layout_constraintVertical_bias="0.0" />
 
         <SeekBar
-            android:id="@+id/slider"
+            android:id="@+id/numberOfQuestionsSeekbar"
             android:layout_width="337dp"
             android:layout_height="30dp"
             android:elevation="@dimen/cardview_compat_inset_shadow"
@@ -264,7 +269,7 @@
             android:thumbTint="#4f6c8d"
             app:layout_constraintBottom_toTopOf="@+id/numberOfMinutesTextView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/numberOfQuestions"
+            app:layout_constraintTop_toBottomOf="@+id/numberOfQuestionsTextView"
             app:layout_constraintVertical_bias="0.215" />
 
 

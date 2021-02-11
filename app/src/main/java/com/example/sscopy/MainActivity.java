@@ -17,8 +17,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.example.sscopy.Model.StudyGoal;
-
 import java.text.DateFormat;
 import java.util.Calendar;
 
@@ -27,22 +25,39 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     TextView sliderValue;
     SeekBar seekbar;
     Switch switch1;
-    Button setTime;
-    Button getStarted;
-    Button setDate;
+    Button setTime,getStarted,setDate;
     boolean saveSwitchState;
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static SharedPreferences preferences;
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferences = getSharedPreferences( getPackageName() + "_preferences", MODE_PRIVATE);
         setTitle("Study Goals");
         setContentView(R.layout.activity_main);
-        seekbar=findViewById(R.id.slider);
-        seekbar.incrementProgressBy(100);
+        seekbar=findViewById(R.id.numberOfQuestionsSeekbar);
+        seekbar.incrementProgressBy(10);
         seekbar.setMax(270);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             seekbar.setMin(20);
         }
+        //setting the state of the switch a
         switch1=findViewById(R.id.enableNotificationSwitch);
+        setDate = (Button) findViewById(R.id.setDateButton);
+        setTime = (Button) findViewById(R.id.setTimeButton);
+        setDuration=findViewById(R.id.setDurationButton);
+        //Setting up all the attributes in the activity according to the Shared Preference
+        StudyGoal studyGoal=new StudyGoal();
+        studyGoal.fetchdata();
+        //Set Time button on click implementation
+        setTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment timePicker = new TimePickerFragment();
+                timePicker.show(getSupportFragmentManager(),"Time");
+            }
+        });
+        //Logic for making the "Set Time" button dependent on the switch "Enable Daily Notifications"
         switch1.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 if(switch1.isChecked())
@@ -57,27 +72,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 }
             }
         });
-        setDate = (Button) findViewById(R.id.setDate);
-        setTime = (Button) findViewById(R.id.setTime);
-        setDuration=findViewById(R.id.setDuration);
-        SharedPreferences getShared = getSharedPreferences("info", MODE_PRIVATE);
-        String time= getShared.getString("SetTime", "Set Time");
-        String date= getShared.getString("SetDate", "Set Date");
-        String duration= getShared.getString("SetDuration", "Set Duration");
-        String switchState= getShared.getString("SwitchState","false");
-        boolean bool = Boolean.parseBoolean(String.valueOf(switchState));
-        switch1.setChecked(bool);
-        setTime.setText(time);
-        setDate.setText(date);
-        setDuration.setText(duration);
-        setTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(),"Time");
-            }
-        });
-//        SharedPreferences info = getSharedPreferences()
+        //Below we have the implementation for Setting number of Minutes per Day by the user
         final int[] hourDuration = new int[1];
         final int[] minuteDuration = new int[1];
         setDuration.setOnClickListener(new View.OnClickListener() {
@@ -100,9 +95,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 durationPicker.show();
             }
         });
-
-        SeekBar slider=findViewById(R.id.slider);
-        sliderValue=(TextView) findViewById(R.id.textView);
+//Implementation for the textview beside the seekbar
+        SeekBar slider=findViewById(R.id.numberOfQuestionsSeekbar);
+        sliderValue=(TextView) findViewById(R.id.numberOfQuestionsSeekBar);
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -121,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
             }
         });
-
+//"Set Date" implementation
         setDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,24 +124,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 datePicker.show(getSupportFragmentManager(),"Date");
             }
         });
-        getStarted=findViewById(R.id.getStarted);
+        getStarted=findViewById(R.id.getStartedButton);
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Model Logic:
-//                StudyGoal studyGoal = new StudyGoal(setTime.getText().toString(), setDate.getText().toString(), setDuration.getText().toString());
-//                String a = studyGoal.getDate();
-
-
-                // Shared Preferences Logic:
-                SharedPreferences info = getSharedPreferences("info", MODE_PRIVATE);
-                SharedPreferences.Editor editor = info.edit();
-                editor.putString("SetTime", (String) setTime.getText());
-                editor.putString("SetDate", (String) setDate.getText());
-                editor.putString("SetDuration", (String) setDuration.getText());
-                editor.putString("noOfQuestions", (String) sliderValue.getText());
-                editor.putString("SwitchState", String.valueOf(saveSwitchState));
-                editor.commit();
+                studyGoal.run();
             }
         });
     }
@@ -160,14 +142,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, day);
         String examDateString = DateFormat.getDateInstance().format(c.getTime());
-        Button setDate=(Button)findViewById(R.id.setDate);
+        Button setDate=(Button)findViewById(R.id.setDateButton);
         setDate.setText(examDateString);
 
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-        setTime= findViewById(R.id.setTime);
+        setTime= findViewById(R.id.setTimeButton);
         setTime.setText(hour+":"+minute);
     }
 }
