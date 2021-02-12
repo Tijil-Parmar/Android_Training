@@ -1,106 +1,79 @@
 package com.example.StudyGoals;
 
-import android.os.Build;
-import android.util.Log;
-
-import androidx.annotation.RequiresApi;
-
 public class StudyGoal {
-    String examDate, duration, numberOfQuestions, reminderTime;
-    Boolean switchState;
-    public static final String SET_DURATION = "";
-    public static final String SET_TIME = "";
-    public static final String SET_DATE = "";
-    public static final String NO_OF_QUESTIONS = "";
-    public static final Boolean SWITCH_STATE= Boolean.valueOf("switchstate");
-    StudyGoal(){
+    String examDate = "Set Date";
+    String notificationReminderTime = "Set Time";
+    int numberOfQuestions = 20;
+    int studyDuration = 30;
+    Boolean isReminder = false;
+    static StudyGoal studyGoal;
 
-    }
-    public StudyGoal(String examDate, String duration, String numberOfQuestions, String reminderTime, Boolean switchState) {
-        this.examDate = examDate;
-        Log.d("examDateConstructor",examDate);
-        this.duration = duration;
-        this.numberOfQuestions = numberOfQuestions;
-        this.reminderTime = reminderTime;
-        this.switchState = switchState;
+    private StudyGoal() {
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.M)
-//    public void run()
-//    {
-////        StudyGoalManager studyGoalManager = new StudyGoalManager(examDate, duration, numberOfQuestions, reminderTime, switchState);
-////        studyGoalManager.commitData();
-//
-//    }
-//    @RequiresApi(api = Build.VERSION_CODES.M)
-//    public void SGfetchdata() {
-//        StudyGoalManager study = new StudyGoalManager();
-//        examDate = study.getExamDate();
-//        duration = study.getDuration();
-//        numberOfQuestions = study.getNumberOfQuestions();
-//        reminderTime = study.getReminderTime();
-//        switchState = study.getSwitchState();
-//    }
+    public static StudyGoal getStudyGoalobject() {
+        if (studyGoal == null) {
+            studyGoal = new StudyGoal();
+        }
+        return studyGoal;
+    }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public String getExamDate() {
-        MainActivity.preferences.getString(SET_DATE,"Set Date");
-        Log.d("examDate in Getter",SET_DATE);
-        return SET_DATE;
+        return examDate;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setExamDate(String examDate) {
-        MainActivity.preferences.edit().putString(SET_DATE, examDate).commit();
-        Log.d("examDate in Setter",SET_DATE);
-        this.examDate = SET_DATE;
+        this.examDate = examDate;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public String getDuration() {
-        MainActivity.preferences.getString(SET_DURATION,"Set Duration");
-        return SET_DURATION;
+    public String getNotificationReminderTime() {
+        return notificationReminderTime;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void setDuration(String duration) {
-        MainActivity.preferences.edit().putString(SET_DURATION, duration).commit();
-        this.duration = SET_DURATION;
+    public void setNotificationReminderTime(String notificationReminderTime) {
+        this.notificationReminderTime = notificationReminderTime;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public String getNumberOfQuestions() {
-        MainActivity.preferences.getString( NO_OF_QUESTIONS ,"30");
-        return NO_OF_QUESTIONS;
+    public int getNumberOfQuestions() {
+        return numberOfQuestions;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void setNumberOfQuestions(String numberOfQuestions) {
-        MainActivity.preferences.edit().putString(NO_OF_QUESTIONS, numberOfQuestions).commit();
-        this.numberOfQuestions = NO_OF_QUESTIONS;
+    public void setNumberOfQuestions(int numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public String getReminderTime() {
-        MainActivity.preferences.getString(SET_TIME,"Set Time");
-        return SET_TIME;
+    public int getStudyDuration() {
+        return studyDuration;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void setReminderTime(String reminderTime) {
-        MainActivity.preferences.edit().putString(SET_TIME, reminderTime).commit();
-        this.reminderTime = SET_TIME;
+    public void setStudyDuration(int studyDuration) {
+        this.studyDuration = studyDuration;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public Boolean getSwitchState() {
-        MainActivity.preferences.getBoolean(String.valueOf(SWITCH_STATE),false);
-        return SWITCH_STATE;
+    public Boolean getReminder() {
+        return isReminder;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void setSwitchState(Boolean switchState) {
-        MainActivity.preferences.edit().putBoolean(String.valueOf(SWITCH_STATE), switchState).commit();
-        this.switchState = SWITCH_STATE;
+    public void setReminder(Boolean reminder) {
+        isReminder = reminder;
+    }
+
+    public static StudyGoal getStudyGoal() {
+        return studyGoal;
+    }
+
+    public static void setStudyGoal(StudyGoal studyGoal) {
+        StudyGoal.studyGoal = studyGoal;
+    }
+
+    @Override
+    public String toString() {
+        return "StudyGoal{" +
+                "examDate='" + examDate + '\'' +
+                ", studyDuration='" + studyDuration + '\'' +
+                ", numberOfQuestions='" + numberOfQuestions + '\'' +
+                ", notificationReminderTime='" + notificationReminderTime + '\'' +
+                ", isReminder=" + isReminder +
+                '}';
     }
 }

@@ -67,7 +67,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/setDateButton" />
+            app:layout_constraintTop_toBottomOf="@+id/setDateTV" />
 
         <TextView
             android:id="@+id/numberOfMinutesTextView"
@@ -103,7 +103,7 @@
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/setDateButton"
+            android:id="@+id/setDateTV"
             android:layout_width="199dp"
             android:layout_height="42dp"
             android:layout_marginLeft="10dp"
@@ -132,7 +132,7 @@
             app:layout_constraintBottom_toTopOf="@+id/numberOfQuestionsTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/setDateButton" />
+            app:layout_constraintTop_toBottomOf="@+id/setDateTV" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/reviewProgressButton"
@@ -197,11 +197,11 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             android:clickable="false"
-            app:layout_constraintTop_toBottomOf="@+id/setDurationButton"
+            app:layout_constraintTop_toBottomOf="@+id/setDurationTV"
             app:layout_constraintVertical_bias="0.648" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/setTimeButton"
+            android:id="@+id/setTimeTV"
             android:layout_width="123dp"
             android:layout_height="42dp"
             android:layout_marginBottom="144dp"
@@ -221,7 +221,7 @@
             app:strokeWidth="0.7dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/setDurationButton"
+            android:id="@+id/setDurationTV"
             android:layout_width="204dp"
             android:layout_height="42dp"
             android:layout_marginLeft="5dp"
