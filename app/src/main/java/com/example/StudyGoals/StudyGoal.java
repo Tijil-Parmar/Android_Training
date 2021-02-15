@@ -4,7 +4,7 @@ public class StudyGoal {
     String examDate = "Set Date";
     String notificationReminderTime = "Set Time";
     int numberOfQuestions = 20;
-    int studyDuration = 30;
+    public int studyDuration = 30;
     Boolean isReminder = false;
     static StudyGoal studyGoal;
 
@@ -24,6 +24,7 @@ public class StudyGoal {
 
     public void setExamDate(String examDate) {
         this.examDate = examDate;
+
     }
 
     public String getNotificationReminderTime() {
@@ -32,6 +33,7 @@ public class StudyGoal {
 
     public void setNotificationReminderTime(String notificationReminderTime) {
         this.notificationReminderTime = notificationReminderTime;
+
     }
 
     public int getNumberOfQuestions() {
@@ -40,6 +42,7 @@ public class StudyGoal {
 
     public void setNumberOfQuestions(int numberOfQuestions) {
         this.numberOfQuestions = numberOfQuestions;
+
     }
 
     public int getStudyDuration() {
@@ -48,6 +51,7 @@ public class StudyGoal {
 
     public void setStudyDuration(int studyDuration) {
         this.studyDuration = studyDuration;
+
     }
 
     public Boolean getReminder() {
@@ -56,6 +60,7 @@ public class StudyGoal {
 
     public void setReminder(Boolean reminder) {
         isReminder = reminder;
+
     }
 
     public static StudyGoal getStudyGoal() {
@@ -64,6 +69,7 @@ public class StudyGoal {
 
     public static void setStudyGoal(StudyGoal studyGoal) {
         StudyGoal.studyGoal = studyGoal;
+
     }
 
     @Override

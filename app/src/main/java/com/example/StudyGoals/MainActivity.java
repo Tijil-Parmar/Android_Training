@@ -9,6 +9,7 @@ import android.app.TimePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -46,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         displayUserSelectedQuestions =findViewById(R.id.numberOfQuestionsSeekBar);
         StudyGoal studyGoal=StudyGoal.getStudyGoalobject();
         displayExamDate.setText(studyGoal.getExamDate());
-        displayStudyTime.setText(studyGoal.getStudyDuration()+" Mins");
+        displayStudyTime.setText(String.valueOf((studyGoal.getStudyDuration())));
         displayReminderTimeBtn.setText(studyGoal.getNotificationReminderTime());
-        displayUserSelectedQuestions.setText(studyGoal.getNumberOfQuestions()+" ");
+        displayUserSelectedQuestions.setText(String.valueOf(studyGoal.getNumberOfQuestions()));
         numberOfQuestionsSeekbar.setProgress((studyGoal.getNumberOfQuestions()));
         studyReminderSwitch.setChecked(studyGoal.getReminder());
         preferences = getSharedPreferences( getPackageName() + "_preferences", MODE_PRIVATE);
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             c1.set(0,0,0, hourDuration[0], minuteDuration[0]);
                             displayStudyTime.setText(android.text.format.DateFormat.format("hh:mm",c1));
                                 studyGoal.studyDuration = hourDuration[0]*60 + minuteDuration[0];
-                                displayStudyTime.setText(studyGoal.studyDuration+" Mins");
+                                displayStudyTime.setText(String.valueOf(studyGoal.studyDuration));
                             }
                         },24,0,true
                 );
@@ -105,9 +106,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
         //Implementation for the textview beside the seekbar
-        SeekBar slider=findViewById(R.id.numberOfQuestionsSeekbar);
-        displayUserSelectedQuestions =(TextView) findViewById(R.id.numberOfQuestionsSeekBar);
-        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        numberOfQuestionsSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 i = i / 10;
@@ -135,12 +134,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         getStartedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String a= (String) displayUserSelectedQuestions.getText();
-                studyGoal.numberOfQuestions=Integer.parseInt(a);
-                studyGoal.examDate= (String) displayExamDate.getText();
-                studyGoal.isReminder=saveSwitchState;
-                studyGoal.notificationReminderTime= (String) displayReminderTimeBtn.getText();
-                studyGoal.studyDuration= Integer.parseInt((String) displayStudyTime.getText());
+//                studyGoal.numberOfQuestions= Integer.parseInt(displayUserSelectedQuestions.getText().toString());
+                studyGoal.setNumberOfQuestions(Integer.parseInt(displayUserSelectedQuestions.getText().toString()));
+//                studyGoal.examDate= (String) displayExamDate.getText();
+                studyGoal.setExamDate((String) displayExamDate.getText());
+//                studyGoal.isReminder=saveSwitchState;
+                studyGoal.setReminder(saveSwitchState);
+//                studyGoal.notificationReminderTime= (String) displayReminderTimeBtn.getText();
+                studyGoal.setNotificationReminderTime((String) displayReminderTimeBtn.getText());
+//                studyGoal.studyDuration= Integer.parseInt((displayStudyTime.getText().toString()));
+                studyGoal.setStudyDuration(Integer.parseInt((displayStudyTime.getText().toString())));
+                Log.d("Duration set as", String.valueOf(studyGoal.studyDuration));
                 studyGoal.toString();
             }
         });
