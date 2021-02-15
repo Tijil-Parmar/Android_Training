@@ -20,10 +20,10 @@
             android:outlineSpotShadowColor="#BFBFBF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/enableNotificationSwitch"
-            app:layout_constraintVertical_bias="0.234" />
+            app:layout_constraintVertical_bias="0.329" />
 
         <View
             android:id="@+id/view"
@@ -40,9 +40,10 @@
 
         <TextView
             android:id="@+id/examDateTextView"
-            android:layout_width="344dp"
-            android:layout_height="35dp"
+            android:layout_width="392dp"
+            android:layout_height="38dp"
             android:fontFamily="@font/helvetica"
+            android:gravity="center"
             android:text="@string/textViewDate"
             android:textColor="#4f6c8d"
             android:textSize="16sp"
@@ -57,18 +58,18 @@
             android:id="@+id/numberOfQuestionsTextView"
             android:layout_width="387dp"
             android:layout_height="46dp"
-            android:layout_marginBottom="161dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/helvetica"
             android:lineSpacingExtra="8sp"
             android:text="@string/questionsPerDayTextView"
             android:textColor="#4f6c8d"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/enableNotificationSwitch"
+            app:layout_constraintBottom_toTopOf="@+id/view2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/setDateTV"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.092" />
 
         <TextView
             android:id="@+id/numberOfMinutesTextView"
@@ -88,8 +89,8 @@
 
         <Switch
             android:id="@+id/enableNotificationSwitch"
-            android:layout_width="371dp"
-            android:layout_height="44dp"
+            android:layout_width="391dp"
+            android:layout_height="51dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvetica"
             android:text="@string/enableReminderNotifications"
@@ -97,10 +98,10 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.528"
+            app:layout_constraintVertical_bias="0.56"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <View
@@ -112,7 +113,8 @@
             app:layout_constraintBottom_toTopOf="@+id/numberOfQuestionsTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setDateTV" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/reviewProgressButton"
@@ -159,10 +161,10 @@
             android:id="@+id/setReminderTimeTextView"
             android:layout_width="211dp"
             android:layout_height="35dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="28dp"
             android:fontFamily="@font/helvetica"
-            android:text="@string/daily_reminder_time"
             android:gravity="center_vertical"
+            android:text="@string/daily_reminder_time"
             android:textColor="#4f6c8d"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -178,21 +180,24 @@
             app:layout_constraintBottom_toTopOf="@+id/enableNotificationSwitch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/enableNotificationSwitch"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/numberOfQuestionsSeekBar"
             android:layout_width="40dp"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="4dp"
+            android:gravity="center"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/numberOfQuestionsSeekbar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.897"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/numberOfQuestionsSeekbar"
             app:layout_constraintTop_toBottomOf="@+id/numberOfQuestionsTextView"
-            app:layout_constraintVertical_bias="0.642" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <SeekBar
             android:id="@+id/numberOfQuestionsSeekbar"
@@ -212,7 +217,7 @@
             android:id="@+id/setDateTV"
             android:layout_width="221dp"
             android:layout_height="35dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/textviewborder"
             android:gravity="center"
             android:text="Set Date"
@@ -251,10 +256,10 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/getStartedButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.846"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/setReminderTimeTextView"
             app:layout_constraintTop_toBottomOf="@+id/enableNotificationSwitch"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.055" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

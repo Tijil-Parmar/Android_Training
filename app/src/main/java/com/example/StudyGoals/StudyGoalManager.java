@@ -28,7 +28,7 @@ public class StudyGoalManager {
     }
 
     public String getExamDate() {
-        examDate=MainActivity.preferences.getString("examDate","");
+        examDate=MainActivity.preferences.getString("examDate"," ");
         return examDate;
     }
 
@@ -43,7 +43,7 @@ public class StudyGoalManager {
     }
 
     public void setNotificationReminderTime(String notificationReminderTime) {
-        MainActivity.preferences.edit().putString("dailyReminder", "12:47 PM").apply();
+        MainActivity.preferences.edit().putString("dailyReminder", notificationReminderTime).apply();
         this.notificationReminderTime = notificationReminderTime;
     }
 
@@ -53,7 +53,7 @@ public class StudyGoalManager {
     }
 
     public void setNumberOfQuestions(int numberOfQuestions) {
-        MainActivity.preferences.edit().putString("questionsGoal", examDate).apply();
+        MainActivity.preferences.edit().putString("questionsGoal", String.valueOf(numberOfQuestions)).apply();
         this.numberOfQuestions = numberOfQuestions;
     }
 
@@ -63,7 +63,7 @@ public class StudyGoalManager {
     }
 
     public void setStudyDuration(int studyDuration) {
-        MainActivity.preferences.edit().putString("timeGoal", examDate).apply();
+        MainActivity.preferences.edit().putString("timeGoal", String.valueOf(studyDuration)).apply();
         this.studyDuration = studyDuration;
     }
 
@@ -73,7 +73,7 @@ public class StudyGoalManager {
     }
 
     public void setReminder(Boolean reminder) {
-        MainActivity.preferences.edit().putString("isReminder", "false").apply();
+        MainActivity.preferences.edit().putString("isReminder", String.valueOf(reminder)).apply();
         isReminder = reminder;
     }
 }

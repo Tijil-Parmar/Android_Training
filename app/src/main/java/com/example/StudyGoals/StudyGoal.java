@@ -1,7 +1,7 @@
 package com.example.StudyGoals;
 
 public class StudyGoal {
-    String examDate = "Set Date";
+    String examDate = "";
     String notificationReminderTime = "Set Time";
     int numberOfQuestions = 20;
     public int studyDuration = 30;
@@ -9,8 +9,14 @@ public class StudyGoal {
     static StudyGoal studyGoal;
 
     private StudyGoal() {
+        StudyGoalManager studyGoalManagerObject = StudyGoalManager.getSGMobject();
+        examDate = studyGoalManagerObject.getExamDate();
+        notificationReminderTime = studyGoalManagerObject.getNotificationReminderTime();
+        numberOfQuestions = studyGoalManagerObject.getNumberOfQuestions();
+        studyDuration = studyGoalManagerObject.getStudyDuration();
+        isReminder = studyGoalManagerObject.getReminder();
     }
-
+    StudyGoalManager studyGoalManagerObject2 = StudyGoalManager.getSGMobject();
     public static StudyGoal getStudyGoalobject() {
         if (studyGoal == null) {
             studyGoal = new StudyGoal();
@@ -24,7 +30,7 @@ public class StudyGoal {
 
     public void setExamDate(String examDate) {
         this.examDate = examDate;
-
+        studyGoalManagerObject2.setExamDate(examDate);
     }
 
     public String getNotificationReminderTime() {
@@ -33,7 +39,7 @@ public class StudyGoal {
 
     public void setNotificationReminderTime(String notificationReminderTime) {
         this.notificationReminderTime = notificationReminderTime;
-
+        studyGoalManagerObject2.setNotificationReminderTime(notificationReminderTime);
     }
 
     public int getNumberOfQuestions() {
@@ -42,7 +48,7 @@ public class StudyGoal {
 
     public void setNumberOfQuestions(int numberOfQuestions) {
         this.numberOfQuestions = numberOfQuestions;
-
+        studyGoalManagerObject2.setNumberOfQuestions(numberOfQuestions);
     }
 
     public int getStudyDuration() {
@@ -51,7 +57,7 @@ public class StudyGoal {
 
     public void setStudyDuration(int studyDuration) {
         this.studyDuration = studyDuration;
-
+        studyGoalManagerObject2.setStudyDuration(studyDuration);
     }
 
     public Boolean getReminder() {
@@ -60,16 +66,15 @@ public class StudyGoal {
 
     public void setReminder(Boolean reminder) {
         isReminder = reminder;
-
+        studyGoalManagerObject2.setReminder(reminder);
     }
 
     public static StudyGoal getStudyGoal() {
         return studyGoal;
     }
 
-    public static void setStudyGoal(StudyGoal studyGoal) {
+    public void setStudyGoal(StudyGoal studyGoal) {
         StudyGoal.studyGoal = studyGoal;
-
     }
 
     @Override

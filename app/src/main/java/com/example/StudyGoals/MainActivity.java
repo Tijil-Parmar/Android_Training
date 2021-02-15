@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         displayReminderTimeBtn = findViewById(R.id.setTimeTV);
         displayStudyTime =findViewById(R.id.setDurationTV);
         displayUserSelectedQuestions =findViewById(R.id.numberOfQuestionsSeekBar);
+        preferences = getSharedPreferences( getPackageName() + "_preferences", MODE_PRIVATE);
         StudyGoal studyGoal=StudyGoal.getStudyGoalobject();
         displayExamDate.setText(studyGoal.getExamDate());
         displayStudyTime.setText(String.valueOf((studyGoal.getStudyDuration())));
@@ -52,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         displayUserSelectedQuestions.setText(String.valueOf(studyGoal.getNumberOfQuestions()));
         numberOfQuestionsSeekbar.setProgress((studyGoal.getNumberOfQuestions()));
         studyReminderSwitch.setChecked(studyGoal.getReminder());
-        preferences = getSharedPreferences( getPackageName() + "_preferences", MODE_PRIVATE);
         displayReminderTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
