@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -54,8 +55,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         displayReminderTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(),"Time");
+                if(studyReminderSwitch.isChecked()) {
+                    DialogFragment timePicker = new TimePickerFragment();
+                    timePicker.show(getSupportFragmentManager(), "Time");
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Enable Switch!",Toast.LENGTH_LONG).show();
+                }
             }
         });
         //Logic for making the "Set Time" button dependent on the switch "Enable Daily Notifications"
