@@ -1,23 +1,24 @@
 package com.example.StudyGoals;
 
 public class StudyGoal {
-    String examDate = "";
-    String notificationReminderTime = "Set Time";
-    int numberOfQuestions = 20;
-    public int studyDuration = 30;
-    Boolean isReminder = false;
+    String examDate;
+    String notificationReminderTime;
+    int numberOfQuestions;
+    public int studyDuration;
+    Boolean isReminder;
     static StudyGoal studyGoal;
+    static StudyGoalManager studyGoalManagerObject;
 
     private StudyGoal() {
-        StudyGoalManager studyGoalManagerObject = StudyGoalManager.getSGMobject();
+        studyGoalManagerObject = StudyGoalManager.getStudyGoalManagerObject();
         examDate = studyGoalManagerObject.getExamDate();
-        notificationReminderTime = studyGoalManagerObject.getNotificationReminderTime();
-        numberOfQuestions = studyGoalManagerObject.getNumberOfQuestions();
-        studyDuration = studyGoalManagerObject.getStudyDuration();
-        isReminder = studyGoalManagerObject.getReminder();
+        notificationReminderTime = studyGoalManagerObject.getDailyReminderTime();
+        numberOfQuestions = Integer.parseInt(studyGoalManagerObject.getUserQuestionsGoal());
+        studyDuration = Integer.parseInt(studyGoalManagerObject.getUserTimeGoal());
+        isReminder = Boolean.valueOf(studyGoalManagerObject.getIsReminder());
     }
-    StudyGoalManager studyGoalManagerObject2 = StudyGoalManager.getSGMobject();
-    public static StudyGoal getStudyGoalobject() {
+
+    public static StudyGoal getStudyGoalObject() {
         if (studyGoal == null) {
             studyGoal = new StudyGoal();
         }
@@ -30,7 +31,7 @@ public class StudyGoal {
 
     public void setExamDate(String examDate) {
         this.examDate = examDate;
-        studyGoalManagerObject2.setExamDate(examDate);
+        studyGoalManagerObject.saveOrUpdateStudyGoalData(StudyGoalManager.EXAM_DATE,examDate);
     }
 
     public String getNotificationReminderTime() {
@@ -39,7 +40,7 @@ public class StudyGoal {
 
     public void setNotificationReminderTime(String notificationReminderTime) {
         this.notificationReminderTime = notificationReminderTime;
-        studyGoalManagerObject2.setNotificationReminderTime(notificationReminderTime);
+        studyGoalManagerObject.saveOrUpdateStudyGoalData(StudyGoalManager.DAILY_REMINDER_TIME,notificationReminderTime);
     }
 
     public int getNumberOfQuestions() {
@@ -48,7 +49,7 @@ public class StudyGoal {
 
     public void setNumberOfQuestions(int numberOfQuestions) {
         this.numberOfQuestions = numberOfQuestions;
-        studyGoalManagerObject2.setNumberOfQuestions(numberOfQuestions);
+        studyGoalManagerObject.saveOrUpdateStudyGoalData(StudyGoalManager.USER_QUESTIONS_GOAL, String.valueOf(numberOfQuestions));
     }
 
     public int getStudyDuration() {
@@ -57,16 +58,16 @@ public class StudyGoal {
 
     public void setStudyDuration(int studyDuration) {
         this.studyDuration = studyDuration;
-        studyGoalManagerObject2.setStudyDuration(studyDuration);
+        studyGoalManagerObject.saveOrUpdateStudyGoalData(StudyGoalManager.USER_TIME_GOAL, String.valueOf(studyDuration));
     }
 
-    public Boolean getReminder() {
+    public Boolean enableReminder() {
         return isReminder;
     }
 
     public void setReminder(Boolean reminder) {
         isReminder = reminder;
-        studyGoalManagerObject2.setReminder(reminder);
+        studyGoalManagerObject.saveOrUpdateStudyGoalData(StudyGoalManager.IS_REMINDER, String.valueOf(reminder));
     }
 
     public static StudyGoal getStudyGoal() {

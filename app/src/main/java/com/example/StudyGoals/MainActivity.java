@@ -1,17 +1,22 @@
 package com.example.StudyGoals;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.SharedPreferences;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -20,11 +25,16 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import static com.example.StudyGoals.StudyGoal.studyGoal;
+import static com.example.StudyGoals.StudyGoalNotification.CHANNEL_1_ID;
+import static com.example.StudyGoals.StudyGoalNotification.CHANNEL_2_ID;
 
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    public static SharedPreferences preferences;
+    private NotificationManagerCompat notificationManager;
     TextView displayStudyTime;
     TextView displayUserSelectedQuestions;
     SeekBar numberOfQuestionsSeekbar;
@@ -32,11 +42,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     TextView displayReminderTimeBtn;
     Button getStartedBtn;
     TextView displayExamDate;
-    boolean saveSwitchState;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        StudyGoalManager.init(this);
+
         numberOfQuestionsSeekbar =findViewById(R.id.numberOfQuestionsSeekbar);
         numberOfQuestionsSeekbar.incrementProgressBy(10);
         numberOfQuestionsSeekbar.setMax(270);
@@ -45,40 +56,43 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         displayReminderTimeBtn = findViewById(R.id.setTimeTV);
         displayStudyTime =findViewById(R.id.setDurationTV);
         displayUserSelectedQuestions =findViewById(R.id.numberOfQuestionsSeekBar);
-        preferences = getSharedPreferences( getPackageName() + "_preferences", MODE_PRIVATE);
-        StudyGoal studyGoal=StudyGoal.getStudyGoalobject();
+
+        StudyGoal studyGoal=StudyGoal.getStudyGoalObject();
         displayExamDate.setText(studyGoal.getExamDate());
         displayStudyTime.setText(String.valueOf((studyGoal.getStudyDuration())));
         displayReminderTimeBtn.setText(studyGoal.getNotificationReminderTime());
         displayUserSelectedQuestions.setText(String.valueOf(studyGoal.getNumberOfQuestions()));
         numberOfQuestionsSeekbar.setProgress((studyGoal.getNumberOfQuestions()));
-        studyReminderSwitch.setChecked(studyGoal.getReminder());
+        studyReminderSwitch.setChecked(studyGoal.enableReminder());
+        displayReminderTimeBtn.setEnabled(studyGoal.enableReminder());
+
+        notificationManager = NotificationManagerCompat.from(this);
+
+        studyReminderSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                studyGoal.setReminder(isChecked);
+                Log.d("SWITCH STATE", String.valueOf(isChecked));
+            }
+        });
+
         displayReminderTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(studyReminderSwitch.isChecked()) {
+                if(studyGoal.isReminder==true) {
                     DialogFragment timePicker = new TimePickerFragment();
                     timePicker.show(getSupportFragmentManager(), "Time");
                 }
                 else
                 {
                     Toast.makeText(getApplicationContext(),"Enable Switch!",Toast.LENGTH_LONG).show();
+                    Log.d("ELSE STATUS", "WORKING");
                 }
             }
         });
         //Logic for making the "Set Time" button dependent on the switch "Enable Daily Notifications"
         studyReminderSwitch.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                if(studyReminderSwitch.isChecked())
-                {
-                    displayReminderTimeBtn.setEnabled(true);
-                    saveSwitchState = true;
-                }
-                else
-                {
-                    displayReminderTimeBtn.setEnabled(false);
-                    saveSwitchState = false;
-                }
+                    displayReminderTimeBtn.setEnabled(studyGoal.enableReminder());
             }
         });
         final int[] hourDuration = new int[1];
@@ -98,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             displayStudyTime.setText(android.text.format.DateFormat.format("hh:mm",c1));
                                 studyGoal.studyDuration = hourDuration[0]*60 + minuteDuration[0];
                                 displayStudyTime.setText(String.valueOf(studyGoal.studyDuration));
+                                studyGoal.setStudyDuration(Integer.parseInt((displayStudyTime.getText().toString())));
                             }
                         },24,0,true
                 );
@@ -112,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 i = i / 10;
                 i = i * 10;
                 displayUserSelectedQuestions.setText(String.valueOf(i));
+                studyGoal.setNumberOfQuestions(Integer.parseInt(displayUserSelectedQuestions.getText().toString()));
             }
 
             @Override
@@ -134,20 +150,37 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         getStartedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                studyGoal.numberOfQuestions= Integer.parseInt(displayUserSelectedQuestions.getText().toString());
-                studyGoal.setNumberOfQuestions(Integer.parseInt(displayUserSelectedQuestions.getText().toString()));
-//                studyGoal.examDate= (String) displayExamDate.getText();
-                studyGoal.setExamDate((String) displayExamDate.getText());
-//                studyGoal.isReminder=saveSwitchState;
-                studyGoal.setReminder(saveSwitchState);
-//                studyGoal.notificationReminderTime= (String) displayReminderTimeBtn.getText();
-                studyGoal.setNotificationReminderTime((String) displayReminderTimeBtn.getText());
-//                studyGoal.studyDuration= Integer.parseInt((displayStudyTime.getText().toString()));
-                studyGoal.setStudyDuration(Integer.parseInt((displayStudyTime.getText().toString())));
-                Log.d("Duration set as", String.valueOf(studyGoal.studyDuration));
-                studyGoal.toString();
+                Toast.makeText(MainActivity.this, "Reminder Set", Toast.LENGTH_SHORT).show();
+//                studyGoal.setReminder(studyReminderSwitch.isChecked());
+                String s = (String) displayReminderTimeBtn.getText();
+//                int currentHour = Integer.parseInt(currentTime[0]) * 60 * 60 *1000;
+//                int currentMinute = Integer.parseInt(reminderTime[1]) *  60 *1000;
+//                int timeRemaining = (reminderHour+reminderMinute)-(currentHour+currentMinute);
+//                if(timeRemaining>0)
+//                {
+//                    setReminder(timeRemaining);
+//                }
+//                else
+//                {
+//
+//                }
+                setReminder(5000);
+                Log.d("SWITCH STATE", String.valueOf(studyGoal.isReminder));
             }
         });
+    }
+
+    public void setReminder(long timeLeft){
+
+        Intent intent =new Intent(MainActivity.this, NotificationBroadcast.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this,0, intent,0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        long timeAtButtonClick = System.currentTimeMillis();
+        Log.d("system time",String.valueOf(timeAtButtonClick));
+        Log.d("Milliseconds Left ::::", String.valueOf(timeLeft));
+        timeAtButtonClick = 0;
+//        timeLeft=timeAtButtonClick;
+        alarmManager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick+timeLeft,pendingIntent);
     }
 
     @Override
@@ -159,11 +192,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         String examDateString = DateFormat.getDateInstance().format(c.getTime());
         TextView setDate=findViewById(R.id.setDateTV);
         setDate.setText(examDateString);
+        studyGoal.setExamDate( displayExamDate.getText().toString());
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
         displayReminderTimeBtn = findViewById(R.id.setTimeTV);
-        displayReminderTimeBtn.setText(hour+":"+minute);
+        if(minute<10){
+            displayReminderTimeBtn.setText(hour+":0"+minute);
+        }
+        else {
+            displayReminderTimeBtn.setText(hour + ":" + minute);
+        }
+        studyGoal.setNotificationReminderTime( displayReminderTimeBtn.getText().toString());
     }
 }

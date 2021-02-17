@@ -1,79 +1,65 @@
 package com.example.StudyGoals;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import androidx.annotation.Nullable;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.Map;
-import java.util.Set;
-
-import static android.content.Context.MODE_PRIVATE;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class StudyGoalManager {
-    String examDate="Set Date";
-    String notificationReminderTime="Set Time";
-    int numberOfQuestions=20;
-    int studyDuration=30;
-    Boolean isReminder=false;
 
+    public static SharedPreferences studyGoalSharedPreferences;
+    public static final String STUDY_GOAL_MANAGER_NAME = "Study Goal";
+    public static final String EXAM_DATE = "examDate";
+    public static final String DAILY_REMINDER_TIME = "dailyReminder";
+    public static final String USER_QUESTIONS_GOAL = "questionsGoal";
+    public static final String USER_TIME_GOAL = "timeGoal";
+    public static final String IS_REMINDER = "isReminder";
     static StudyGoalManager studyGoalManager;
     private StudyGoalManager() {
     }
-    public static StudyGoalManager getSGMobject() {
+    public static StudyGoalManager getStudyGoalManagerObject() {
         if (studyGoalManager == null) {
             studyGoalManager = new StudyGoalManager();
         }
         return studyGoalManager;
     }
 
+    public static void init(Context context)
+    {
+        if(studyGoalSharedPreferences == null)
+            studyGoalSharedPreferences = context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE);
+    }
+
     public String getExamDate() {
-        examDate=MainActivity.preferences.getString("examDate"," ");
-        return examDate;
+        return (studyGoalSharedPreferences.getString(EXAM_DATE, "Set Date"));
     }
 
-    public void setExamDate(String examDate) {
-        MainActivity.preferences.edit().putString("examDate", examDate).apply();
-        this.examDate = examDate;
+    public String getDailyReminderTime() {
+        return (studyGoalSharedPreferences.getString(DAILY_REMINDER_TIME, "12:47"));
     }
 
-    public String getNotificationReminderTime() {
-        notificationReminderTime=MainActivity.preferences.getString("dailyReminder","12:47 PM");
-        return notificationReminderTime;
+    public String getUserQuestionsGoal() {
+        return (studyGoalSharedPreferences.getString(USER_QUESTIONS_GOAL, "20"));
     }
 
-    public void setNotificationReminderTime(String notificationReminderTime) {
-        MainActivity.preferences.edit().putString("dailyReminder", notificationReminderTime).apply();
-        this.notificationReminderTime = notificationReminderTime;
+    public String getUserTimeGoal() {
+        return (studyGoalSharedPreferences.getString(USER_TIME_GOAL, "30"));
     }
 
-    public int getNumberOfQuestions() {
-        numberOfQuestions= Integer.parseInt(MainActivity.preferences.getString("questionsGoal","20"));
-        return numberOfQuestions;
+    public String getIsReminder() {
+        return (studyGoalSharedPreferences.getString(IS_REMINDER, String.valueOf(false)));
     }
 
-    public void setNumberOfQuestions(int numberOfQuestions) {
-        MainActivity.preferences.edit().putString("questionsGoal", String.valueOf(numberOfQuestions)).apply();
-        this.numberOfQuestions = numberOfQuestions;
-    }
+//    public String fetchSharedPreferencevalue(String tag) {
+//        return (studyGoalSharedPreferences.getString(tag, ""));
+//    }
 
-    public int getStudyDuration() {
-        studyDuration= Integer.parseInt(MainActivity.preferences.getString("timeGoal","30"));
-        return studyDuration;
-    }
-
-    public void setStudyDuration(int studyDuration) {
-        MainActivity.preferences.edit().putString("timeGoal", String.valueOf(studyDuration)).apply();
-        this.studyDuration = studyDuration;
-    }
-
-    public Boolean getReminder() {
-        isReminder= Boolean.valueOf(MainActivity.preferences.getString("isReminder","false"));
-        return isReminder;
-    }
-
-    public void setReminder(Boolean reminder) {
-        MainActivity.preferences.edit().putString("isReminder", String.valueOf(reminder)).apply();
-        isReminder = reminder;
+    public void saveOrUpdateStudyGoalData(String tag, String value) {
+        studyGoalSharedPreferences.edit().putString(tag, String.valueOf(value)).apply();
     }
 }
