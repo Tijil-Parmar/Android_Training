@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">StudyGoal</string>
     <string name="textViewDate">When do you plan to take your NCLEX exam?</string>
-    <string name="questionsPerDayTextView">How many questions would you like to attempt per day? We recommend 210 questions.</string>
+    <string name="questionsPerDayTextView">How many questions would you like to attempt per day? We recommend 90 questions.</string>
     <string name="minutesPerDay">How many minutes would you like to study per day?</string>
     <string name="enableReminderNotifications">Enable reminder notifications</string>
     <string name="setDate">Set date</string>

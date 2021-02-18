@@ -33,6 +33,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
                 .setContentText("It's time to study.Let's get started :)")
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         notificationManagerCompat.notify(200, notification.build());
