@@ -26,17 +26,21 @@ public class NotificationBroadcast extends BroadcastReceiver {
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(context, AlarmManager.RTC_WAKEUP, intentToRepeat, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
+        int celeEmoji = 0x1F389;
+        int clockEmoji = 0x23F0;
+        String celebrationemoji = new String(Character.toChars(celeEmoji));
+        String clockEmojiString = new String(Character.toChars(clockEmoji));
+        String notificationContent = "It's time to study.Let's get started "+celebrationemoji;
+        String notificationTitle = "Trin Trin! " + clockEmojiString;
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context, CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_one)
-                .setContentTitle("Trin Trin!")
-                .setContentText("It's time to study.Let's get started :)")
+                .setContentTitle(notificationTitle)
+                .setContentText(notificationContent)
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         notificationManagerCompat.notify(200, notification.build());
-
     }
 }
