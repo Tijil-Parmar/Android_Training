@@ -2,7 +2,7 @@
     package="com.example.StudyGoals">
 
     <application
-        android:name=".StudyGoalNotification"
+        android:name=".DailyNotification.StudyGoalNotification"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:theme="@style/Theme.SSCopy">
         <activity android:name="com.example.StudyGoals.getStarted"></activity>
         <activity
-            android:name="com.example.StudyGoals.MainActivity"
+            android:name="com.example.StudyGoals.StudyModel.StudyActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         
-        <receiver android:name=".NotificationBroadcast"/>
+        <receiver android:name=".DailyNotification.NotificationBroadcast"/>
     </application>
 
 </manifest>

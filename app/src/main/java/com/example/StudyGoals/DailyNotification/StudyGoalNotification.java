@@ -1,4 +1,4 @@
-package com.example.StudyGoals;
+package com.example.StudyGoals.DailyNotification;
 
 import android.app.AlarmManager;
 import android.app.Application;
@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+
+import com.example.StudyGoals.StudyModel.StudyGoal;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -28,14 +30,14 @@ public class StudyGoalNotification extends Application {
                     "Channel 1",
                     NotificationManager.IMPORTANCE_HIGH
             );
-            channel1.setDescription("This is Channel 1");
+            channel1.setDescription("This is Channel 1 with high importance.");
 
             NotificationChannel channel2 = new NotificationChannel(
                     CHANNEL_2_ID,
                     "Channel 2",
                     NotificationManager.IMPORTANCE_LOW
             );
-            channel2.setDescription("This is Channel 2");
+            channel2.setDescription("This is Channel 2, low importance.");
 
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel1);
@@ -49,7 +51,7 @@ public class StudyGoalNotification extends Application {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0, intent,0);
         Log.d("setReminder", "WORKING");
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         long timeAtButtonClick = System.currentTimeMillis();
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -61,7 +63,11 @@ public class StudyGoalNotification extends Application {
         datetimetoalarm.set(Calendar.SECOND, 0);
         datetimetoalarm.set(Calendar.MILLISECOND, 0);
         Calendar today = Calendar.getInstance(Locale.getDefault());
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, datetimetoalarm.getTimeInMillis(), (1000 * 60 * 60 * 24), pendingIntent);
+        if(datetimetoalarm.before(Calendar.getInstance())){
+            datetimetoalarm.add(Calendar.DATE,1);
+        }
+//        alarmManager.setExact(AlarmManager.RTC_WAKEUP, datetimetoalarm.getTimeInMillis(), pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, datetimetoalarm.getTimeInMillis(), (1000 * 60*60*24), pendingIntent);
     }
 
     public void cancelReminder(Context context){

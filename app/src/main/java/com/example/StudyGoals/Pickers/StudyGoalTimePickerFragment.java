@@ -1,4 +1,4 @@
-package com.example.StudyGoals;
+package com.example.StudyGoals.Pickers;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -8,10 +8,11 @@ import android.text.format.DateFormat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.Calendar;
 
-public class TimePickerFragment extends DialogFragment {
+public class StudyGoalTimePickerFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -20,4 +21,6 @@ public class TimePickerFragment extends DialogFragment {
         int minute=ca.get(Calendar.MINUTE);
 
         return new TimePickerDialog(getActivity(), (TimePickerDialog.OnTimeSetListener) getActivity(), hour, minute, DateFormat.is24HourFormat(getActivity()));
-    }}
+    }
+
+}

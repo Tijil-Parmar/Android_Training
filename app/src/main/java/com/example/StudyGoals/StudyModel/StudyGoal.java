@@ -1,11 +1,11 @@
-package com.example.StudyGoals;
+package com.example.StudyGoals.StudyModel;
 
 public class StudyGoal {
     String examDate;
-    String notificationReminderTime;
+    public String notificationReminderTime;
     int numberOfQuestions;
     public int studyDuration;
-    Boolean isReminder;
+    public Boolean isReminder;
     static StudyGoal studyGoal;
     static StudyGoalManager studyGoalManagerObject;
 
