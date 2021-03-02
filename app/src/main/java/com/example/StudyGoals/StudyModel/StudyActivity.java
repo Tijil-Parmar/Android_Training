@@ -56,51 +56,22 @@ public class StudyActivity extends AppCompatActivity implements DatePickerDialog
         setContentView(R.layout.studygoal_recycler_view);
         StudyGoalManager.init(this);
 
-//        recyclerView = findViewById(R.id.recyclerViewStudyGoal);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-//        numberOfQuestionsSeekbar =findViewById(R.id.numberOfQuestionsSeekbar);
-//        numberOfQuestionsSeekbar.incrementProgressBy(10);
-//        numberOfQuestionsSeekbar.setMax(250);
-//        studyReminderSwitch =findViewById(R.id.enableNotificationSwitch);
-//        displayExamDate = findViewById(R.id.setDateTV);
-//        displayReminderTimeBtn = findViewById(R.id.setTimeTV);
-//        displayStudyTime =findViewById(R.id.setDurationTV);
-//        displayUserSelectedQuestions =findViewById(R.id.numberOfQuestionsSeekBar);
-//        getStartedBtn = findViewById(R.id.getStartedButton);
-
         StudyGoal studyGoal=StudyGoal.getStudyGoalObject();
-//        displayExamDate.setText(studyGoal.getExamDate());
-//        displayStudyTime.setText(String.valueOf((studyGoal.getStudyDuration())));
-//        displayReminderTimeBtn.setText(studyGoal.getNotificationReminderTime());
-//        displayUserSelectedQuestions.setText(String.valueOf(studyGoal.getNumberOfQuestions()));
-//        numberOfQuestionsSeekbar.setProgress((studyGoal.getNumberOfQuestions()));
-//        studyReminderSwitch.setChecked(studyGoal.enableReminder());
-//        displayReminderTimeBtn.setEnabled(studyGoal.enableReminder());
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewStudyGoal);
-        List<Item> items = new ArrayList<>();
-//        String[] values={studyGoal.getExamDate(), String.valueOf(studyGoal.getNumberOfQuestions()), String.valueOf(studyGoal.getStudyDuration()), String.valueOf(studyGoal.enableReminder()),studyGoal.getNotificationReminderTime()};
-//        ExamDate examDate = new ExamDate("Set Datte");
-        items.add(new Item(0,studyGoal.getExamDate()));
-//        NumberOfQuestions numberOfQuestions = new NumberOfQuestions(30,"30");
-        items.add(new Item(1, String.valueOf(studyGoal.getNumberOfQuestions())));
-//        TimeGoal timeGoal = new TimeGoal("30");
-        items.add(new Item(2,String.valueOf(studyGoal.getStudyDuration())));
-//        DailyReminder dailyReminder = new DailyReminder(true,"10:00");
-        items.add(new Item(3, studyGoal.getNotificationReminderTime()));
-//        StudyGoalButtons studyGoalButtons = new StudyGoalButtons("Get Started","Review Progress");
-        items.add(new Item(4,studyGoal.getNotificationReminderTime()));
 
+        //List of Components to show
+        List<Item> items = new ArrayList<>();
+        items.add(new Item(0,studyGoal.getExamDate()));
+        items.add(new Item(1, String.valueOf(studyGoal.getNumberOfQuestions())));
+        items.add(new Item(2,String.valueOf(studyGoal.getStudyDuration())));
+        items.add(new Item(3, studyGoal.getNotificationReminderTime()));
+        items.add(new Item(4,studyGoal.getNotificationReminderTime()));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setAdapter(new StudyGoalAdapter2(items,this));
-
-//        String values[]={studyGoal.getExamDate(), String.valueOf(studyGoal.getNumberOfQuestions()), String.valueOf(studyGoal.getNumberOfQuestions()), String.valueOf(studyGoal.getStudyDuration()), String.valueOf(studyGoal.enableReminder()),"12:19"};
-//        recyclerView.setAdapter(new StudyGoalAdapter(arr,values,getApplicationContext()));
 
         notificationManager = NotificationManagerCompat.from(this);
 
@@ -136,7 +107,7 @@ public class StudyActivity extends AppCompatActivity implements DatePickerDialog
 //            }
 //        });
 
-        //Logic for making the "Set Time" button dependent on the switch "Enable Daily Notifications"
+//        Logic for making the "Set Time" button dependent on the switch "Enable Daily Notifications"
 //        studyReminderSwitch.setOnClickListener(new View.OnClickListener(){
 //            public void onClick(View view) {
 //                    displayReminderTimeBtn.setEnabled(studyGoal.enableReminder());

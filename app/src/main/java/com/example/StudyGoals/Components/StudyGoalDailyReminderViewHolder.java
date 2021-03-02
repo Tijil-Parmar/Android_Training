@@ -10,9 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.StudyGoals.DailyNotification.StudyGoalNotification;
+import com.example.StudyGoals.Pickers.StudyGoalTimePickerFragment;
 import com.example.StudyGoals.R;
 import com.example.StudyGoals.StudyModel.StudyActivity;
 import com.example.StudyGoals.StudyModel.StudyGoal;
@@ -50,6 +54,20 @@ public class StudyGoalDailyReminderViewHolder extends RecyclerView.ViewHolder {
                     long reminderHourValue = Long.parseLong(namepass[0]);
                     long reminderMinuteValue = Long.parseLong(namepass[1]);
                     studyGoalNotificationObject.setReminder(context.getApplicationContext(), reminderHourValue, reminderMinuteValue);
+                }
+            }
+        });
+        reminderTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(studyGoal.isReminder) {
+                    DialogFragment timePicker = new StudyGoalTimePickerFragment();
+                    try {
+                        FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+                        timePicker.show(fragmentManager, "Time");
+                    } catch (ClassCastException e) {
+//                    Log.e(TAG, "Can't get fragment manager");
+                    }
                 }
             }
         });

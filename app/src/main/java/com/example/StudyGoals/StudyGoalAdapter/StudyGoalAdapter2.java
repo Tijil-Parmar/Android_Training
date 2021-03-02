@@ -146,14 +146,13 @@ public class StudyGoalAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHol
             ((QuestionGoalViewHolder)holder).numberOfQuestionsSetData(studyGoal.getNumberOfQuestions());
         }
         else if(getItemViewType(position)==2){
-            ((StudyGoalsTimeGoalViewHolder)holder).timeGoalSetData(studyGoal.getStudyDuration());
+            ((StudyGoalsTimeGoalViewHolder)holder).timeGoalSetData(studyGoal.getStudyDuration(),studyGoalActivityContext);
         }
         else if(getItemViewType(position)==3){
             ((StudyGoalDailyReminderViewHolder)holder).dailyReminderSetData(studyGoal.getNotificationReminderTime(), studyGoalActivityContext);
         }
         else if(getItemViewType(position)==4){
         }
-
     }
 
     @Override
