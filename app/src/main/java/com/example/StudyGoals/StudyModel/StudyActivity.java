@@ -3,9 +3,11 @@ package com.example.StudyGoals.StudyModel;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -28,11 +30,12 @@ import com.example.StudyGoals.DailyNotification.StudyGoalNotification;
 import com.example.StudyGoals.Pickers.StudyGoalDatePickerFragment;
 import com.example.StudyGoals.Pickers.StudyGoalTimePickerFragment;
 import com.example.StudyGoals.R;
-import com.example.StudyGoals.StudyGoalAdapter.StudyGoalAdapter;
+import com.example.StudyGoals.StudyGoalAdapter.StudyGoalAdapter2;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static com.example.StudyGoals.StudyModel.StudyGoal.studyGoal;
 
@@ -48,25 +51,14 @@ public class StudyActivity extends AppCompatActivity implements DatePickerDialog
     Button reviewProgressBtn;
     TextView displayExamDate;
 
-    private RecyclerView recyclerView;
-    private StudyGoalAdapter studyGoalRecyclerViewAdapter;
-    private ArrayList<StudyGoal> studyGoalArrayList;
-    private ArrayAdapter<String> arrayAdapter;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.studygoal_recycler_view);
         StudyGoalManager.init(this);
 
-        recyclerView = findViewById(R.id.recyclerViewStudyGoal);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        String EXAM_DATE="1";
-        String NUMBER_OF_QUESTIONS="2";
-        String TIME_GOAL="3";
-        String REMINDER_SWITCH="4";
-        String REMINDER_TIME="5";
-        String arr[]={EXAM_DATE,NUMBER_OF_QUESTIONS,TIME_GOAL,REMINDER_SWITCH,REMINDER_TIME};
+//        recyclerView = findViewById(R.id.recyclerViewStudyGoal);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 //        numberOfQuestionsSeekbar =findViewById(R.id.numberOfQuestionsSeekbar);
 //        numberOfQuestionsSeekbar.incrementProgressBy(10);
@@ -87,8 +79,28 @@ public class StudyActivity extends AppCompatActivity implements DatePickerDialog
 //        studyReminderSwitch.setChecked(studyGoal.enableReminder());
 //        displayReminderTimeBtn.setEnabled(studyGoal.enableReminder());
 
-        String values[]={studyGoal.getExamDate(), String.valueOf(studyGoal.getNumberOfQuestions()), String.valueOf(studyGoal.getNumberOfQuestions()), String.valueOf(studyGoal.getStudyDuration()), String.valueOf(studyGoal.enableReminder()),"12:19"};
-        recyclerView.setAdapter(new StudyGoalAdapter(arr,values,getApplicationContext()));
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewStudyGoal);
+        List<Item> items = new ArrayList<>();
+//        String[] values={studyGoal.getExamDate(), String.valueOf(studyGoal.getNumberOfQuestions()), String.valueOf(studyGoal.getStudyDuration()), String.valueOf(studyGoal.enableReminder()),studyGoal.getNotificationReminderTime()};
+//        ExamDate examDate = new ExamDate("Set Datte");
+        items.add(new Item(0,studyGoal.getExamDate()));
+//        NumberOfQuestions numberOfQuestions = new NumberOfQuestions(30,"30");
+        items.add(new Item(1, String.valueOf(studyGoal.getNumberOfQuestions())));
+//        TimeGoal timeGoal = new TimeGoal("30");
+        items.add(new Item(2,String.valueOf(studyGoal.getStudyDuration())));
+//        DailyReminder dailyReminder = new DailyReminder(true,"10:00");
+        items.add(new Item(3, studyGoal.getNotificationReminderTime()));
+//        StudyGoalButtons studyGoalButtons = new StudyGoalButtons("Get Started","Review Progress");
+        items.add(new Item(4,studyGoal.getNotificationReminderTime()));
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setAdapter(new StudyGoalAdapter2(items,this));
+
+//        String values[]={studyGoal.getExamDate(), String.valueOf(studyGoal.getNumberOfQuestions()), String.valueOf(studyGoal.getNumberOfQuestions()), String.valueOf(studyGoal.getStudyDuration()), String.valueOf(studyGoal.enableReminder()),"12:19"};
+//        recyclerView.setAdapter(new StudyGoalAdapter(arr,values,getApplicationContext()));
 
         notificationManager = NotificationManagerCompat.from(this);
 
@@ -198,7 +210,7 @@ public class StudyActivity extends AppCompatActivity implements DatePickerDialog
         String examDateString = DateFormat.getDateInstance().format(c.getTime());
         TextView setDate=findViewById(R.id.setDateTV);
         setDate.setText(examDateString);
-        studyGoal.setExamDate( displayExamDate.getText().toString());
+        studyGoal.setExamDate( setDate.getText().toString());
     }
 
     @Override
